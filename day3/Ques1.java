@@ -14,6 +14,7 @@ class Node{
 class LinkedList
 {
 	Node head=null;
+	Node head1=null;
 	public void add(int data)
 	{
 		Node newNode=new Node(data);
@@ -25,9 +26,33 @@ class LinkedList
 		else
 		{
 			Node currNode=head;
+			while(currNode.next!=null)
+			{
+				currNode=currNode.next;
+			}
 			currNode.next=newNode;
 			currNode=newNode;
 		}
+	}
+	public void reorderList()
+	{
+		if(head==null)
+		{
+			return;
+		}
+		Node odd=head;
+		Node even=head.next;
+		Node temp=even;
+		
+		while(even!=null&&even.next!=null)
+		{
+			odd.next=even.next;
+			odd=odd.next;
+			even.next=odd.next;
+			even=even.next;
+			
+		}
+		odd.next=temp;
 	}
 	public void display()
 	{
@@ -41,7 +66,14 @@ class LinkedList
 			 temp=head;
 			 while(temp!=null)
 			 {
-				 System.out.print(temp.data+" ");
+				 if(temp.next==null)
+				 {
+					 System.out.print(temp.data); 
+				 }
+				 else
+				 {
+				   System.out.print(temp.data+"->");
+				 }
 				 temp=temp.next;
 			 }
 		}
@@ -60,6 +92,10 @@ public class Ques1 {
 		{
 			list.add(scan.nextInt());
 		}
+		System.out.println("Before Swapping:");
+		list.display();
+		list.reorderList();
+		System.out.println("\nAfter Swapping:");
 		list.display();
 		scan.close();
 
